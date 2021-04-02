@@ -26,7 +26,8 @@ export function untar(stream: NodeJS.ReadableStream): Promise<PackageFiles> {
 
         e.on('error', reject);
         e.on('data', (c: Buffer) => content.push(c));
-        e.on('end', () => (files[p] = Buffer.concat(content)));
+        // e.on('end', () => (files[p] = Buffer.concat(content)));
+        e.on('end', () => (files[p] = Buffer.concat(content).toString('utf8')));
       })
       .on('end', () => resolve(files));
   });

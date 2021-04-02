@@ -91,7 +91,8 @@ export interface Pilet {
 }
 
 export interface PackageFiles {
-  [file: string]: Buffer;
+  // [file: string]: Buffer;
+  [file: string]: string;
 }
 
 export interface PackageData {

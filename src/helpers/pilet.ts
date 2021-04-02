@@ -11,13 +11,15 @@ let iter = 1;
 function getPackageJson(files: PackageFiles): PackageData {
   const fileName = `${packageRoot}package.json`;
   const fileContent = files[fileName];
-  const content = fileContent.toString('utf8');
+  // const content = fileContent.toString('utf8');
+  const content = fileContent;
   return JSON.parse(content);
 }
 
 function getContent(path: string, files: PackageFiles) {
   const content = path && files[path];
-  return content && content.toString('utf8');
+  return content;
+  // return content && content.toString('utf8');
 }
 
 function getPiletMainPath(data: PackageData, files: PackageFiles) {

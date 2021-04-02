@@ -40,6 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server-express": "^2.19.0",
+    "bson": "^4.2.3",
     "connect-busboy": "^0.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -47,6 +48,7 @@
     "graphql-type-json": "^0.3.2",
     "mime-types": "^2.1.27",
     "pm2": "^4.5.0",
+    "redis": "^3.1.0",
     "response-time": "^2.3.2",
     "tar": "^6.0.5"
   },
