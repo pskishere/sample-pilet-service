@@ -1,7 +1,13 @@
 import { Pilet } from '../types';
 const redis = require('redis');
 const BSON = require('bson');
-const client = redis.createClient({ return_buffers: true });
+const client = redis.createClient({
+  url: process.env.REDIS_URL || null,
+  host: process.env.REDIS_HOST || '127.0.0.1',
+  port: process.env.REDIS_PORT || 6379,
+  db: process.env.REDIS_DB || null,
+  return_buffers: true,
+});
 
 // let piletData: Record<string, Record<string, Pilet>> = {};
 

@@ -44,6 +44,10 @@ For the pilets the reported URL is `http://localhost/...` unless changed via `sr
 | PORT                   | The port, otherwise falling back to 9000                                        |
 | HTTPS                  | Is HTTPS active, otherwise falling back to HTTP                                 |
 | HTTP_X_FORWARDED_PROTO | The used protocol (e.g., `http`), otherwise falling back to the `HTTPS` setting |
+| REDIS_HOST             | IP address of the Redis server                                                  |
+| REDIS_PORT             | Port of the Redis server                                                        |
+| REDIS_DB               | If set, client will run Redis select command on connect.                        |
+| REDIS_URL              | The URL of the Redis server. Format:  [redis[s]:]//[[user][:password@]][host][:port][/db-number] [?db=db-number[&password=bar[&option=value]]                                |
 
 ## Usage via NPM
 
