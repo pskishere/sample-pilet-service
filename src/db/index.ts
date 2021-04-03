@@ -2,35 +2,38 @@ import { Pilet } from '../types';
 const redis = require('redis');
 const BSON = require('bson');
 const client = redis.createClient({
-  url: process.env.REDIS_URL || null,
-  host: process.env.REDIS_HOST || '127.0.0.1',
+  host: process.env.REDIS_HOST || '0.0.0.0',
   port: process.env.REDIS_PORT || 6379,
-  db: process.env.REDIS_DB || null,
+  url: process.env.REDIS_URL || null,
   return_buffers: true,
 });
 
 // let piletData: Record<string, Record<string, Pilet>> = {};
 
 export async function getPilets(): Promise<Array<Pilet>> {
-  let pilets: Array<Pilet> = [];
-
   return new Promise((resolve: any, reject) => {
     client.keys('*', async function(err: any, replies: any) {
-      const name = replies.toString('utf-8');
-      new Promise((resolve: any, reject) => {
-        client.get(name, async function(err: any, reply: any) {
-          const pilet = BSON.deserialize(reply);
-          Object.keys(pilet).forEach((version: string) => {
-            pilets.push(pilet[version]);
-            resolve(pilets);
-          });
-        });
-      }).then(res => {
-        resolve(res);
+      const names = replies.toString('utf-8').split(',');
+
+      let namesPromise: any = [];
+
+      names.forEach((element: any) => {
+        namesPromise.push(
+          new Promise(resolve => {
+            client.get(element, function(err: any, reply: any) {
+              const pilet = BSON.deserialize(reply);
+              Object.keys(pilet).forEach((version: string) => {
+                resolve(pilet[version]);
+              });
+            });
+          }),
+        );
+      });
+
+      return Promise.all(namesPromise).then(promises => {
+        resolve(promises);
       });
     });
-  }).then((res: any) => {
-    return res;
   });
 }
 
