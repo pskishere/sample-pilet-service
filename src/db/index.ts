@@ -16,18 +16,19 @@ export async function getPilets(): Promise<Array<Pilet>> {
       const names = replies.toString('utf-8').split(',');
 
       let namesPromise: any = [];
-
       names.forEach((element: any) => {
-        namesPromise.push(
-          new Promise(resolve => {
-            client.get(element, function(err: any, reply: any) {
-              const pilet = BSON.deserialize(reply);
-              Object.keys(pilet).forEach((version: string) => {
-                resolve(pilet[version]);
+        if (element != '') {
+          namesPromise.push(
+            new Promise(resolve => {
+              client.get(element, function(err: any, reply: any) {
+                const pilet = BSON.deserialize(reply);
+                Object.keys(pilet).forEach((version: string) => {
+                  resolve(pilet[version]);
+                });
               });
-            });
-          }),
-        );
+            }),
+          );
+        }
       });
 
       return Promise.all(namesPromise).then(promises => {
