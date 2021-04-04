@@ -12,6 +12,12 @@ For running this sample locally all you need to do is running:
 npm i && npm start
 ```
 
+## Runing
+
+```sh
+tsc && npm run start
+```
+
 **Remark**: This sample requires Node.js and NPM. The used port is `9000`, which could be re-configured easily (e.g., via an environment variable `PORT`).
 
 ## Auth Keys
